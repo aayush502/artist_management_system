@@ -1,0 +1,90 @@
+{% extends 'users/base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="login">
+        <h2>Sign Up</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+            <div class="col">
+                <label for="first_name">First Name</label><br>
+                {{ form.first_name }}
+            </div>
+            <div class="col">
+                <label for="last_name">Last Name</label><br>
+                {{ form.last_name }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="email">Email</label><br>
+                {{ form.email }}
+            </div>
+            <div class="col-md-6">
+                <label for="phone">Phone</label><br>
+                {{ form.phone }}
+                {% if form.phone.errors %}
+                <ul class="errorlist" style="color: red;">
+                {% for error in form.phone.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="password">Password</label><br>
+                {{ form.password1 }}
+                {% if form.password2.errors %}
+                    <ul class="errorlist" style="color: red;">
+                        {% for error in form.password2.errors %}
+                            <li>{{ error }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <label for="password_confirmation">Confirm Password</label><br>
+                {{ form.password2 }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <label for="dob">Date of Birth</label><br>
+                {{ form.dob }}
+                {% if form.dob.errors %}
+                <ul class="errorlist" style="color: red;">
+                {% for error in form.dob.errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+            </div>
+            <div class="col-md-6">
+                <label for="address">Address</label><br>
+                {{ form.address }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <label for="gender">Gender</label><br>
+                {{ form.gender }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="submit" value="Signup" class="btn btn-outline-success btn-form">
+                    </div>
+                    <div class="col-md-6">
+                        <p>Already have an account? <a href="{% url 'login' %}">Login</a></a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+</div>
+
+{% endblock content %}
