@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.conf.urls.static import static
 from django.conf import settings
-from django.urls import path
+from django.urls import path, include
 from users.views import *
 
 urlpatterns = [
@@ -25,7 +25,8 @@ urlpatterns = [
     path('register/', register  , name='register'),
     path('login/', login_user, name='login'),
     path('logout/', logout_user, name='logout'),
-    path('', dashboard, name='dashboard')
+    path('api/', include('api.urls')),
+    path('', include('users.urls')),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
