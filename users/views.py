@@ -44,7 +44,7 @@ def user_list(request):
     paginator = Paginator(users, per_page=10)
     page_number = request.GET.get('page')
     page = paginator.get_page(page_number)
-    return render(request, 'frontend/user-list.html', context={'page': page})
+    return render(request, 'users/user-list.html', context={'page': page})
 
 def user_update(request, pk):
     user = User.objects.raw('select * from users_user where id = %s', [pk])
