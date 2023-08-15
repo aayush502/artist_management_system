@@ -1,4 +1,65 @@
+<!-- user_list.html -->
 {% extends 'users/base.html' %}
+
 {% block content %}
-<p>This is the dashboard</p>
-{% endblock content %}
+<div class="container mt-4">
+  <h1>User List</h1>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Email</th>
+        <th>Dob</th>
+        <th>Gender</th>
+        <th>Phone</th>
+        <th>Address</th>
+
+      </tr>
+    </thead>
+    <tbody>
+    {% for user in users %}
+    <tr>
+      <td>{{user.first_name}}</td>
+      <td>{{user.last_name}}</td>
+      <td>{{user.email}}</td>
+      <td>{{user.dob}}</td>
+      <td>{{user.gender}}</td>
+      <td>{{user.phone}}</td>
+      <td>{{user.address}}</td>
+    </tr>
+    {% endfor %}
+    </tbody>
+  </table>
+  
+  <!-- Pagination links -->
+  <div class="pagination">
+    {{ pagination_html|safe }}
+  </div>
+</div>
+
+<script>
+$(document).ready(function() {
+  // Function to populate user data and pagination links
+  function populateData(data) {
+    var tbody = $('.table tbody');
+    for (var i = 0; i < data.results.length; i++) {
+      var user = data.results[i];
+      var row = '<tr><td>' + user.id + '</td><td>' + user.username + '</td><td>' + user.email + '</td></tr>';
+      tbody.append(row);
+    }
+    
+    var pagination = $('.pagination');
+    pagination.html(data.pagination_html);
+  }
+
+  $.ajax({
+    url: '/api/users/',  // URL to your DRF view
+    method: 'GET',
+    success: function(data) {
+      populateData(data);
+    }
+  });
+});
+</script>
+{% endblock %}

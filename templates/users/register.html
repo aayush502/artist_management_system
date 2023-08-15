@@ -3,7 +3,11 @@
 {% block content %}
 <div class="container">
     <div class="login">
+        {% if not form.instance.id %}
         <h2>Sign Up</h2>
+        {% else %}
+        <h2>Update User</h2>
+        {%endif%}
         <form method="POST">
             {% csrf_token %}
             <div class="row">
@@ -68,19 +72,35 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-md-12">
+            <div class="col-md-6">
                 <label for="gender">Gender</label><br>
                 {{ form.gender }}
             </div>
+            {%if request.user.role == 'super_admin'%}
+            <div class="col-md-6">
+                <label for="role">Role</label><br>
+                {{form.role}}
+            </div>
+            {% endif %}
         </div>
+        {% if not form.instance.id %}
         <div class="row">
             <div class="col-md-6">
                 <input type="submit" value="Signup" class="btn btn-outline-success btn-form">
                     </div>
-                    <div class="col-md-6">
+                    {% if not request.user.is_authenticated %}
+                    <div class="col-md-6 mt-4">
                         <p>Already have an account? <a href="{% url 'login' %}">Login</a></a></p>
                     </div>
                 </div>
+                {% endif %}
+                {% else %}
+                <div class="row">
+                    <div class="col-md-6">
+                        <input type="submit" value="Update" class="btn btn-outline-success btn-form">
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </form>
