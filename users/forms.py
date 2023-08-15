@@ -9,7 +9,7 @@ class RegistrationForm(UserCreationForm):
 
     class Meta:
         model = User
-        fields = ['first_name', 'last_name', 'email', 'phone', 'dob', 'address', 'gender', 'password1', 'password2',]
+        fields = ['first_name', 'last_name', 'email', 'phone', 'dob', 'address', 'gender', 'password1', 'password2', 'role',]
         widgets = {
             'dob': DateInput(),
             'phone': forms.fields.TextInput(attrs={'placeholder': '+977 9999999999'}),
